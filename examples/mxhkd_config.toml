@@ -1,0 +1,92 @@
+[settings]
+# Mandatory
+shell = "bash"
+# Mandatory
+# Note: Choose an unobtrusive but easy to reach key.
+# `Escape` might not work for everyone, though.
+mode_key  = "Escape"
+# Optional but highly recommended
+mode_change_cmd = '''
+   notify-send --app-name mxhkd \
+               --urgency low \
+               --expire-time 1500 \
+               mxhkd "%{mode}% Mode"
+'''
+# Optional but also recommended
+not_found_cmd = '''
+   notify-send --app-name mxhkd \
+               --urgency low \
+               --expire-time 1500 \
+               mxhkd "Binding for \'%{binding}%\' not found"
+'''
+# Optional
+sticky_mode = "F1"
+# TODO:
+# sticky_repeat = "period"
+
+[bindings]
+# === Say hi ===
+greet = "notify-send --app-name mxhkd mxhkd 'Hello, world!'"
+
+# === Some apps ===
+a = "rofi -show window -font 'Envy Code R 13'"
+o = "rofi -show run    -font 'Envy Code R 13'"
+t = "termite"
+
+# === Spotify stuff ===
+sx = "spotify-controls play-pause"
+sn = "spotify-controls next"
+sp = "spotify-controls prev"
+
+# === Lock the screen ===
+sl = "i3lock -i ~/Downloads/mountains_bg.png"
+
+# === Spotify ===
+sx = "spotify-controls play-pause"
+sn = "spotify-controls next"
+sp = "spotify-controls previous"
+
+# === Window control ===
+# Note: Some of them are better used in sticky mode
+h  = "i3 focus left"
+j  = "i3 focus down"
+k  = "i3 focus up"
+l  = "i3 focus right"
+f  = "i3 fullscreen toggle"
+
+H  = "i3 resize grow   width  5 px or 5 ppt"
+J  = "i3 resize shrink height 5 px or 5 ppt"
+K  = "i3 resize grow   height 5 px or 5 ppt"
+L  = "i3 resize shrink width  5 px or 5 ppt"
+F  = "i3 floating toggle"
+
+1  = "i3 workspace 1"
+2  = "i3 workspace 2"
+3  = "i3 workspace 3"
+4  = "i3 workspace 4"
+5  = "i3 workspace 5"
+6  = "i3 workspace 6"
+7  = "i3 workspace 7"
+8  = "i3 workspace 8"
+9  = "i3 workspace 9"
+0  = "i3 workspace 10"
+
+m1  = "i3 move container to workspace 1"
+m2  = "i3 move container to workspace 2"
+m3  = "i3 move container to workspace 3"
+m4  = "i3 move container to workspace 4"
+m5  = "i3 move container to workspace 5"
+m6  = "i3 move container to workspace 6"
+m7  = "i3 move container to workspace 7"
+m8  = "i3 move container to workspace 8"
+m9  = "i3 move container to workspace 9"
+m0  = "i3 move container to workspace 10"
+
+wn = "i3 workspace next"
+wp = "i3 workspace prev"
+
+Q  = "i3 kill"  # Only kills the container in focus... the name is very dramatic
+
+# Volume control
+vd = "amixer sset 'Master' 10%-"
+vu = "amixer sset 'Master' 10%+"
