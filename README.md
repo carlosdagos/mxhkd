@@ -18,9 +18,9 @@ days.
 
 #### Help with RSI
 
-Key chords like those used in _sxhkd_ and many other programs are
-a great contributor to RSI. Using modes is a great way to reuse
-the keys closest to the natural positioning of your hands.
+Key chords like those used in _sxhkd_ and many other programs can
+contribute to RSI. Using modes is a great way to reuse the keys
+closest to the natural positioning of your hands.
 
 [Read up on the _emacs pinky_ this doesn't make any sense to
 you.](https://en.wikipedia.org/wiki/Emacs#Emacs_pinky)

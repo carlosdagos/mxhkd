@@ -3,7 +3,7 @@ use std::iter::Iterator;
 use std::process::Command;
 use xcb;
 
-use crate::config::Config;
+use crate::config::{Config, ModKeySpec};
 use crate::types::*;
 use crate::xmodmap::XModMap;
 
@@ -48,13 +48,33 @@ pub fn free_keyboard(conn: &xcb::Connection) {
 }
 
 /// Only grabs the specified key
-pub fn grab_key(conn: &xcb::Connection, screen: xcb::Window, key: u8) {
+pub fn grab_key(
+    conn: &xcb::Connection,
+    screen: xcb::Window,
+    xmodmap: &XModMap,
+    key_spec: &ModKeySpec,
+) {
+    let key = xmodmap
+        .get_key(&key_spec.key)
+        .expect("Tried to grab an unknown key.");
+
+    let mask = if let Some(modifier) = &key_spec.modifier {
+        match modifier {
+            KeyState::Normal => xcb::MOD_MASK_ANY as u16,
+            KeyState::Shift => xcb::MOD_MASK_SHIFT as u16,
+            KeyState::Ctrl => xcb::MOD_MASK_CONTROL as u16,
+            KeyState::Alt => xcb::MOD_MASK_1 as u16,
+        }
+    } else {
+        xcb::MOD_MASK_ANY as u16
+    };
+
     let cook = xcb::grab_key(
         &conn,
         true,
         screen,
-        xcb::MOD_MASK_ANY as u16,
-        key,
+        mask,
+        *key,
         xcb::GRAB_MODE_ASYNC as u8,
         xcb::GRAB_MODE_SYNC as u8,
     );
@@ -79,10 +99,9 @@ pub fn key_for(key_event: &xcb::KeyPressEvent, xmodmap: &XModMap, config: &Confi
     let state = KeyState::from_xcb(key_event.state());
     let string = xmodmap.get_string(&key);
 
-    let is_mode_key = if let Some(s) = string {
-        *s == config.settings.mode_key
-    } else {
-        false
+    let is_mode_key = match string {
+        Some(s) => config.settings.is_mode_key(s, &state),
+        None => false,
     };
 
     if is_mode_key {

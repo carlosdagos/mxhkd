@@ -1,29 +1,59 @@
 [settings]
 # Mandatory
 shell = "bash"
-# Mandatory
-# Note: Choose an unobtrusive but easy to reach key.
-# `Escape` might not work for everyone, though.
-mode_key  = "Escape"
-# Optional but highly recommended
+
+# MANDATORY
+#
+# Choose an unobtrusive but easy to reach `key`. `Escape` might not
+# work for everyone because it's used by almost every program, so I
+# use a modifier here but maybe `Caps_Lock` if you've configured it
+# correctly to not actually go into caps.
+#
+# `modifier` is an Optional key, valid values are
+# `Alt`, `Switch`, and `Ctrl`
+mode_switch = { key = "space", modifier = "Alt" }
+
+# OPTIONAL
+#
+# Highly recommended: Runs a command every time the mode is
+# switched. `%{mode}%` is replaced by the name of the mode.
 mode_change_cmd = '''
    notify-send --app-name mxhkd \
                --urgency low \
                --expire-time 1500 \
                mxhkd "%{mode}% Mode"
 '''
-# Optional but also recommended
+
+# OPTIONAL
+#
+# Also recommended. Runs a command when `mxhkd` can't find a
+# binding. The `%{binding}%` string is replaced with the actual
+# binding.
 not_found_cmd = '''
    notify-send --app-name mxhkd \
                --urgency low \
                --expire-time 1500 \
                mxhkd "Binding for \'%{binding}%\' not found"
 '''
-# Optional
+# OPTIONAL
+#
+# Enters a "sticky mode". By default `mxhkd` will
+# exit into `Window` mode after a successful or failed
+# attempt at running a binding. However in sticky mode
+# the mode will stay until `mode_switch` is triggered
+# again.
 sticky_mode = "F1"
-# TODO:
+
+# TODO
+#
+# When implemented, it will repeat the last command successfully ran
+# in sticky mode.
 # sticky_repeat = "period"
 
+# MANDATORY
+#
+# Define the bindings to run. DO NOT set up overlapping bindings as
+# one of them will never work. Will add an error for that later.
 [bindings]
 # === Say hi ===
 greet = "notify-send --app-name mxhkd mxhkd 'Hello, world!'"

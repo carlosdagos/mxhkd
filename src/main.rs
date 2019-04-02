@@ -39,14 +39,14 @@ fn switch_to_window(
     free_keyboard: bool,
 ) {
     println!("Switching to Window mode. Listening only on mode key.");
+    println!("Grabbing key: {:?}", &config.settings.mode_switch);
 
     if free_keyboard {
         println!("Freeing keyboard.");
         xcb_util::free_keyboard(conn);
     }
 
-    let mode_key = xmodmap.get_key(&config.settings.mode_key).unwrap();
-    xcb_util::grab_key(&conn, screen, *mode_key);
+    xcb_util::grab_key(&conn, screen, xmodmap, &config.settings.mode_switch);
 
     if let Some(cmd) = &config.settings.mode_change_cmd {
         notify_mode(&config.settings.shell, cmd, Mode::Window);

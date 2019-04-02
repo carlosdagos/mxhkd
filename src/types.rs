@@ -1,3 +1,5 @@
+use serde::Deserialize;
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum Mode {
     Window,
@@ -5,12 +7,12 @@ pub enum Mode {
     NormalSticky,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Deserialize, Debug, PartialEq, Eq)]
 pub enum KeyState {
     Normal,
     Shift,
     Ctrl,
-    CtrlShift,
+    Alt,
 }
 
 impl KeyState {
@@ -23,7 +25,8 @@ impl KeyState {
             0x3 => KeyState::Shift,
             // Ctrl
             0x4 => KeyState::Ctrl,
-            0x5 => KeyState::CtrlShift,
+            // Alt
+            0x8 => KeyState::Alt,
             // Anything else is ignored
             _ => KeyState::Normal,
         }

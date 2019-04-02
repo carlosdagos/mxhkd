@@ -53,7 +53,10 @@ where
     // This regex (ugh...)
     // Note: This basically controls which keys we'll listen to in the entire program
     // Note: Honestly I don't know how long it will take to get this one right
-    let re = Regex::new(r"keycode\s+(\d+) = ([a-z]|\d|F[0-9]+|Escape|Tab|period|comma)\s").unwrap();
+    let re = Regex::new(
+        r"keycode\s+(\d+) = ([a-z]|\d|F[0-9]+|Escape|Tab|Caps_Lock|period|comma|space)\s",
+    )
+    .unwrap();
 
     for line in lines {
         let line = line.as_ref();
@@ -89,6 +92,7 @@ mod modmap_test {
             "keycode  24 = q Q q Q",
             "keycode  48 = apostrophe quotedbl apostrophe",
             "keycode  60 = period greater period greater",
+            "keycode  65 = space NoSymbol space",
             "keycode  75 = F9 F9 F9 F9 F9 F9 XF86Switch_VT_9",
             "keycode  76 = F10 F10 F10 F10 F10 F10 XF86Switch_VT_10",
         ];
@@ -104,6 +108,7 @@ mod modmap_test {
         assert_eq!(mappings.get_string(&11), Some(&"2".to_string()));
         assert_eq!(mappings.get_string(&23), Some(&"Tab".to_string()));
         assert_eq!(mappings.get_string(&60), Some(&"period".to_string()));
+        assert_eq!(mappings.get_string(&65), Some(&"space".to_string()));
         assert_eq!(mappings.get_string(&75), Some(&"F9".to_string()));
         assert_eq!(mappings.get_string(&76), Some(&"F10".to_string()));
     }
