@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
   RUST_BACKTRACE = 1;
 
   buildInputs = [
+    ronn
     python3
     xorg.libxcb
     xorg.libX11

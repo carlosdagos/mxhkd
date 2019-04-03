@@ -1,8 +1,8 @@
 [settings]
-# Mandatory
+# Required
 shell = "bash"
 
-# MANDATORY
+# REQUIRED
 #
 # Choose an unobtrusive but easy to reach `key`. `Escape` might not
 # work for everyone because it's used by almost every program, so I
@@ -42,7 +42,7 @@ not_found_cmd = '''
 # attempt at running a binding. However in sticky mode
 # the mode will stay until `mode_switch` is triggered
 # again.
-sticky_mode = "F1"
+sticky_mode = "Escape"
 
 # TODO
 #
@@ -50,7 +50,7 @@ sticky_mode = "F1"
 # in sticky mode.
 # sticky_repeat = "period"
 
-# MANDATORY
+# REQUIRED
 #
 # Define the bindings to run. DO NOT set up overlapping bindings as
 # one of them will never work. Will add an error for that later.
