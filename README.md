@@ -33,6 +33,14 @@ manager you want. `bspwm` might be a natural fit to use with _mxhkd_,
 but also something like `herbstluftwm`. Up to you. Testing was mostly
 done with `i3` and that worked fine as well.
 
+## Documentation
+
+Docs can be found [here](doc/mxhkd.1.md).
+
+### Sample configuration
+
+See the [`examples` folder](./examples).
+
 ## Runnning
 
 If it's installed:
@@ -57,10 +65,6 @@ nix-shell --command "cargo run -- --config examples/mxhkd_config.toml"
 
 Have a look at the `shell.nix` file to see which system
 dependencies are needed.
-
-## Configuration
-
-See the [`examples` folder](./examples).
 
 ## Compatibility
 

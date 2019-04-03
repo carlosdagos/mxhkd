@@ -42,8 +42,8 @@ pub struct Config {
 
 #[cfg(test)]
 mod config_tests {
-    use toml;
     use crate::types::*;
+    use toml;
 
     #[test]
     fn test_config_parse_simple_mode_key() {
