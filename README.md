@@ -35,7 +35,7 @@ done with `i3` and that worked fine as well.
 
 ## Documentation
 
-Docs can be found [here](doc/mxhkd.1.md).
+Docs can be found [here](https://carlosdagos.github.io/mxhkd).
 
 ### Sample configuration
 
