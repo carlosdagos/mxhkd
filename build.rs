@@ -16,9 +16,17 @@ fn main() {
     let ronn = Command::new("ronn")
         .arg("--date")
         .arg(date)
-        .arg("doc/mxhkd.1.md")
+        .arg("docs/mxhkd.1.md")
         .status()
         .unwrap();
 
     assert!(ronn.success());
+
+    let copy_github_pages = Command::new("mv")
+        .arg("docs/mxhkd.1.html")
+        .arg("docs/index.html")
+        .status()
+        .unwrap();
+
+    assert!(copy_github_pages.success());
 }

@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`mxhkd` --config <config>
+`mxhkd` --config `<config>`
 
 `mxhkd` --version
 
@@ -69,9 +69,9 @@ to overload the keystrokes while still focusing on comfort.
 ## CONFIGURATION
 
 The configuration file for `mxhkd` is in `toml`. There are two top-level
-keys to configure:
+keys to configure: `settings` and `bindings`, which are detailed below.
 
-* `settings`: Controls the overall behavior of `mxhkd`.
+`settings`: Controls the overall behavior of `mxhkd`.
 
   * `shell` (**required**): The shell in which all `mxhkd` commands
     are executed. `bash` and `fish` have been tested. In principle, any
@@ -109,7 +109,7 @@ keys to configure:
     mode. When pressed. This key will only be triggered once in `Normal`
     mode. In `Window` mode it has no effect.
 
-* `bindings`: Defines the custom bindings attached to commands. For example:
+`bindings`: Defines the custom bindings attached to commands. For example:
 
     ```
     a  = "rofi -show window -font 'Envy Code R 13'"
