@@ -119,14 +119,9 @@ pub fn key_for(key_event: &xcb::KeyPressEvent, xmodmap: &XModMap, config: &Confi
 
 /// Runs a command
 pub fn run_command(shell: &str, cmd: &str) {
-    println!("Running command: {}", cmd);
-    match Command::new(shell).arg("-c").arg(cmd).output() {
-        Ok(out) => {
-            if !out.status.success() {
-                println!("No success whilst running '{}'.", cmd);
-                let _ = io::stdout().write_all(&out.stderr);
-            }
-        }
+    println!("Spawning command: {}", cmd);
+    match Command::new(shell).arg("-c").arg(cmd).spawn() {
+        Ok(_) => (),
         Err(e) => println!("Error running {}. Error: {:?}.", cmd, e),
     }
 }
