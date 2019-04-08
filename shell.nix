@@ -22,6 +22,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     ronn
     python3
+    glib
+    xdotool
     xorg.libxcb
     xorg.libX11
     xorg.xmodmap
