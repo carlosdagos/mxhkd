@@ -1,6 +1,4 @@
-use std::io::{self, Write};
 use std::iter::Iterator;
-use std::process::Command;
 use xcb;
 
 use crate::config::{Config, ModKeySpec};
@@ -119,9 +117,43 @@ pub fn key_for(key_event: &xcb::KeyPressEvent, xmodmap: &XModMap, config: &Confi
 
 /// Runs a command
 pub fn run_command(shell: &str, cmd: &str) {
+    use glib_sys::*;
+    use std::ffi::CString;
+    use std::os::raw::c_char;
+    use std::ptr;
+
     println!("Spawning command: {}", cmd);
-    match Command::new(shell).arg("-c").arg(cmd).spawn() {
-        Ok(_) => (),
-        Err(e) => println!("Error running {}. Error: {:?}.", cmd, e),
+
+    let mut error: *mut GError = ptr::null_mut();
+    let mut args = vec![shell, "-c", cmd]
+        .into_iter()
+        .map(|arg| CString::new(arg).unwrap().into_raw())
+        .collect::<Vec<*mut c_char>>();
+
+    // Sentinel null
+    args.push(ptr::null_mut());
+
+    unsafe {
+        let args_ptr = args.as_mut_ptr();
+
+        let res = g_spawn_async(
+            ptr::null_mut(),
+            args_ptr,
+            ptr::null_mut(),
+            G_SPAWN_SEARCH_PATH,
+            None,
+            ptr::null_mut(),
+            ptr::null_mut(),
+            &mut error,
+        );
+
+        if res <= 0 {
+            println!(
+                "Error running {}. Error: {:?}",
+                cmd,
+                CString::from_raw((*error).message)
+            );
+            g_error_free(error);
+        }
     }
 }
