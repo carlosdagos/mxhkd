@@ -111,9 +111,9 @@ keys to configure: `settings` and `bindings`, which are detailed below.
 
 `bindings`: Defines the custom bindings attached to commands. For example:
 
-    ```
-    a  = "rofi -show window -font 'Envy Code R 13'"
-    o  = "rofi -show run    -font 'Envy Code R 13'"
+```
+    a  = "rofi -show window"
+    o  = "rofi -show run"
     t  = "termite"
 
     sx = "spotify-controls play-pause"
@@ -121,7 +121,7 @@ keys to configure: `settings` and `bindings`, which are detailed below.
     sp = "spotify-controls prev"
 
     sl = "i3lock -i ~/Downloads/mountains_bg.png"
-    ```
+```
 
 For this sample configuration, a user who wants to lock the screen using
 `i3lock` would first press `s` followed by `l`; `mxhkd` will trigger
@@ -157,8 +157,7 @@ Please file any bugs encountered using the following
 
 ## HISTORY
 
-* March 2019: v0.0.1
-* April 2019: v0.0.3
+* April 2019: v0.1
 
 ## AUTHOR
 
