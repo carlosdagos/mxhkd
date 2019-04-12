@@ -1,4 +1,4 @@
-# mxhkd (alpha)
+# mxhkd (beta)
 
 ## Description
 
