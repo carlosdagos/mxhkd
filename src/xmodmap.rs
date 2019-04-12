@@ -54,7 +54,7 @@ where
     // Note: This basically controls which keys we'll listen to in the entire program
     // Note: Honestly I don't know how long it will take to get this one right
     let re = Regex::new(
-        r"keycode\s+(\d+) = ([a-z]|\d|F[0-9]+|Escape|Tab|Caps_Lock|period|comma|space)\s",
+        r"keycode\s+(\d+) = ([a-z]|\d|F[0-9]+|Escape|Tab|Caps_Lock|period|comma|space|apostrophe)\s",
     )
     .unwrap();
 

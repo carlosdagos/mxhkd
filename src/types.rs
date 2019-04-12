@@ -13,6 +13,7 @@ pub enum KeyState {
     Shift,
     Ctrl,
     Alt,
+    Super,
 }
 
 impl KeyState {
@@ -27,6 +28,8 @@ impl KeyState {
             0x4 => KeyState::Ctrl,
             // Alt
             0x8 => KeyState::Alt,
+            // Super
+            0x40 => KeyState::Super,
             // Anything else is ignored
             _ => KeyState::Normal,
         }

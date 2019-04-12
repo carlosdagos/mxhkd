@@ -157,8 +157,7 @@ Please file any bugs encountered using the following
 
 ## HISTORY
 
-* March 2019: v0.0.1
-* April 2019: v0.0.3
+* April 2019: v0.1
 
 ## AUTHOR
 

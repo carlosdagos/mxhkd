@@ -62,6 +62,7 @@ pub fn grab_key(
             KeyState::Shift => xcb::MOD_MASK_SHIFT as u16,
             KeyState::Ctrl => xcb::MOD_MASK_CONTROL as u16,
             KeyState::Alt => xcb::MOD_MASK_1 as u16,
+            KeyState::Super => xcb::MOD_MASK_4 as u16,
         }
     } else {
         xcb::MOD_MASK_ANY as u16
