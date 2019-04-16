@@ -10,7 +10,7 @@ shell = "bash"
 # correctly to not actually go into caps.
 #
 # `modifier` is an Optional key, valid values are
-# `Alt`, `Switch`, and `Ctrl`
+# `Alt`, `Switch`, `Super`, and `Ctrl`
 mode_switch = { key = "space", modifier = "Alt" }
 
 # OPTIONAL
