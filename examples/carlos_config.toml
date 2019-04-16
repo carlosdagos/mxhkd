@@ -1,0 +1,216 @@
+#
+# This is my (Carlos') personal config.
+# I quite like how it works and it's my daily
+# driver. I will document more about how it works
+# with time.
+#
+
+[settings]
+# Required
+shell = "bash"
+
+# REQUIRED
+#
+# Choose an unobtrusive but easy to reach `key`. `Escape` might not
+# work for everyone because it's used by almost every program, so I
+# use a modifier here but maybe `Caps_Lock` if you've configured it
+# correctly to not actually go into caps.
+#
+# `modifier` is an Optional key, valid values are
+# `Alt`, `Switch`, `Super`, and `Ctrl`
+mode_switch = { key = "space", modifier = "Alt" }
+
+# OPTIONAL
+#
+# Highly recommended: Runs a command every time the mode is
+# switched. `%{mode}%` is replaced by the name of the mode.
+mode_change_cmd = '''
+   mode="%{mode}%"
+   case $mode in
+     Normal) bgcolor="#fe8019"
+             fgcolor="#282828" ;;
+     Window) bgcolor="#3c3836"
+             fgcolor="#fbf1c7";;
+   esac
+
+   dunstify "%{mode}%" \
+            --replace 111 \
+            --timeout 1500 \
+            -h string:bgcolor:$bgcolor \
+            -h string:fgcolor:$fgcolor
+'''
+
+# OPTIONAL
+#
+# Also recommended. Runs a command when `mxhkd` can't find a
+# binding. The `%{binding}%` string is replaced with the actual
+# binding.
+not_found_cmd = '''
+   dunstify mxhkd "%{binding}%" \
+            --replace 222 \
+            --timeout 1500 \
+            -h string:bgcolor:#af3a03 \
+            -h string:fgcolor:#282828
+'''
+# OPTIONAL
+#
+# Enters a "sticky mode". By default `mxhkd` will
+# exit into `Window` mode after a successful or failed
+# attempt at running a binding. However in sticky mode
+# the mode will stay until `mode_switch` is triggered
+# again.
+sticky_mode = "Escape"
+
+# TODO
+#
+# When implemented, it will repeat the last command successfully ran
+# in sticky mode.
+# sticky_repeat = "period"
+
+# REQUIRED
+#
+# Define the bindings to run. DO NOT set up overlapping bindings as
+# one of them will never work. Will add an error for that later.
+[bindings]
+# === Some apps ===
+a  = "rofi -show window -font 'Envy Code R 13'"
+o  = "rofi -show run    -font 'Envy Code R 13'"
+te = "termite"
+
+# === Spotify stuff ===
+sx = "spotify-controls play-pause"
+sn = "spotify-controls next"
+sp = "spotify-controls prev"
+
+# === Lock the screen ===
+sl = "i3lock -i ~/Downloads/mountains_bg.png"
+
+# === Spotify ===
+sx = "spotify-controls play-pause"
+sn = "spotify-controls next"
+sp = "spotify-controls previous"
+
+# === Window control ===
+# Note: Some of them are better used in sticky mode
+h  = "i3 focus left"
+j  = "i3 focus down"
+k  = "i3 focus up"
+l  = "i3 focus right"
+ff = "i3 fullscreen toggle"
+
+H  = "i3 resize grow   width  5 px or 5 ppt"
+J  = "i3 resize shrink height 5 px or 5 ppt"
+K  = "i3 resize grow   height 5 px or 5 ppt"
+L  = "i3 resize shrink width  5 px or 5 ppt"
+
+# Focus on specific apps
+fb = '''
+  i3 '[class="Firefox"]' focus
+'''
+ft = '''
+  i3 '[class="Termite"]' focus
+'''
+fe = '''
+  i3 '[class="Emacs"]' focus
+'''
+
+ma = "i3 mark a"
+mb = "i3 mark b"
+apostrophea = "i3 [con_mark=\"a\"] focus"
+apostropheb = "i3 [con_mark=\"b\"] focus"
+
+# Workspaces
+
+1  = "i3 workspace 1"
+2  = "i3 workspace 2"
+3  = "i3 workspace 3"
+4  = "i3 workspace 4"
+5  = "i3 workspace 5"
+6  = "i3 workspace 6"
+7  = "i3 workspace 7"
+8  = "i3 workspace 8"
+9  = "i3 workspace 9"
+0  = "i3 workspace 10"
+
+M1  = "i3 move container to workspace 1"
+M2  = "i3 move container to workspace 2"
+M3  = "i3 move container to workspace 3"
+M4  = "i3 move container to workspace 4"
+M5  = "i3 move container to workspace 5"
+M6  = "i3 move container to workspace 6"
+M7  = "i3 move container to workspace 7"
+M8  = "i3 move container to workspace 8"
+M9  = "i3 move container to workspace 9"
+M0  = "i3 move container to workspace 10"
+
+wn = "i3 workspace next"
+wp = "i3 workspace prev"
+
+Q  = "i3 kill"  # Only kills the container in focus... the name is very dramatic
+
+# Experiment
+tt = '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Firefox*) xdotool key ctrl+t ;;
+    *) ;;
+  esac
+'''
+
+tl = '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Firefox*) xdotool key ctrl+Tab ;;
+    *) ;;
+  esac
+'''
+
+th =  '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Firefox*) xdotool key ctrl+shift+Tab ;;
+    *) ;;
+  esac
+'''
+
+# Mattermost experiments (ya ya it's hardcoded and probably won't work with HiDPI but
+# let's try it out like this)
+g = '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Slack*) xdotool key ctrl+k ;;
+    *Mattermost*) xdotool key ctrl+k ;;
+    *) ;;
+  esac
+'''
+
+c1 = '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Mattermost*) geometry=$(xdotool getwindowgeometry $(xdotool getactivewindow))
+                  position=$(echo $geometry | egrep 'Position: [0-9]+,[0-9]+' -o | sed 's/Position: //')
+                  x_coords=$(echo $position | awk -F ',' '{print $1}')
+                  y_coords=$(echo $position | awk -F ',' '{print $2}')
+                  xdotool mousemove $((15 + $x_coords)) $((25 + $y_coords)) click 1
+                  ;;
+    *) ;;
+  esac
+
+'''
+
+c2 = '''
+  window=$(xdotool getwindowname $(xdotool getactivewindow))
+  case $window in
+    *Mattermost*) geometry=$(xdotool getwindowgeometry $(xdotool getactivewindow))
+                  position=$(echo $geometry | egrep 'Position: [0-9]+,[0-9]+' -o | sed 's/Position: //')
+                  x_coords=$(echo $position | awk -F ',' '{print $1}')
+                  y_coords=$(echo $position | awk -F ',' '{print $2}')
+                  xdotool mousemove $((15 + $x_coords)) $((75 + $y_coords)) click 1
+                  ;;
+    *) ;;
+  esac
+'''
+
+# Volume control
+vd = "amixer sset 'Master' 10%-"
+vu = "amixer sset 'Master' 10%+"

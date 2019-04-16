@@ -86,6 +86,8 @@ keys to configure: `settings` and `bindings`, which are detailed below.
 
     This will trigger `mode_switch` when `Alt+Space` is pressed by the user.
 
+    The `modifier` field can take one of `Alt`, `Shift`, `Super`, or `Ctrl`.
+
     Another example is
 
     ```
